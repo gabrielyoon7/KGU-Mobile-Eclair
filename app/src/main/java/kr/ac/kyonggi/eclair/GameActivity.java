@@ -25,9 +25,91 @@ public class GameActivity extends AppCompatActivity {
          tbtn = (ToggleButton) findViewById(R.id.toggleButton);
         BlockButton[][] buttons = new BlockButton[9][9];
 
+
+        /**
+         * 지뢰 맵 생성 시작
+         * */
+
+        int mine = 0;
+        int width = 9;
+        int height = 9;
+        int [][] map = new int[width][height];
+
+        while(mine<10){
+            int x = (int) (Math.random()*width);
+            int y = (int) (Math.random()*height);
+            if(map[x][y]==-1){ //지뢰 중복 시 재시도
+                continue;
+            }
+            else {
+                map[x][y]=-1; //지뢰 생성
+
+                /**
+                 * 지뢰 힌트 생성 시작
+                 * */
+                if((x >= 0 && x <= width-2) && (y >= 0 && y <= height-1)) {
+                    if( map[y][x+1] != -1){
+                        map[y][x+1] += 1;  //center right
+                    }
+                }
+                if ((x >= 1 && x <= width - 1) && (y >= 0 && y <= height - 1)){
+                    if (map[y][x - 1] != -1){
+                        map[y][x - 1] += 1;  // center left
+                    }
+                }
+                if ((x >= 1 && x <= width - 1) && (y >= 1 && y <= height - 1)){
+                    if (map[y - 1][x - 1] != -1){
+                        map[y - 1][x - 1] += 1;  // top left
+                    }
+                }
+                if ((x >= 0 && x <= width - 2) && (y >= 1 && y <= height - 1)){
+                    if (map[y - 1][x + 1] != -1){
+                        map[y - 1][x + 1] += 1 ;  // top right
+                    }
+                }
+                if ((x >= 0 && x <= width - 1) && (y >= 1 && y <= height - 1)){
+                    if (map[y - 1][x] != -1){
+                        map[y - 1][x] += 1;  // top center
+                    }
+                }
+                if ((x >= 0 && x <= width - 2) && (y >= 0 && y <= height - 2)){
+                    if (map[y + 1][x + 1] != -1){
+                        map[y + 1][x + 1] += 1 ; // bottom right
+                    }
+                }
+                if ((x >= 1 && x <= width - 1) && (y >= 0 && y <= height - 2)){
+                    if (map[y + 1][x - 1] != -1){
+                        map[y + 1][x - 1] += 1 ; // bottom left
+                    }
+                }
+                if ((x >= 0 && x <= width - 1) && (y >= 0 && y <= height - 2)){
+                    if (map[y + 1][x] != -1){
+                        map[y + 1][x] += 1 ; // bottom center
+                    }
+                }
+                /**
+                 * 지뢰 힌트 생성 끝
+                 * */
+            }
+            mine++;
+        }
+
+        /**
+         * 지뢰 맵 생성 끝
+         * */
+
+        for(int i = 0 ; i < width; i++){
+            for(int j = 0 ; j < height; j++){
+                System.out.printf(map[i][j]+" ");
+            }
+            System.out.println();
+        }
+
+
         for(int i = 0; i<9; i++){
             TableRow tableRow = new TableRow(this);
             for(int j=0; j<9; j++){
+
                 buttons[i][j] = new BlockButton(this, i, j);
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT,
