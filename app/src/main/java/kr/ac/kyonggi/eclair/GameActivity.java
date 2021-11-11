@@ -15,6 +15,7 @@ public class GameActivity extends AppCompatActivity {
 
     ToggleButton tbtn=null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,31 +39,31 @@ public class GameActivity extends AppCompatActivity {
         while(mine<10){
             int x = (int) (Math.random()*width);
             int y = (int) (Math.random()*height);
-            if(map[x][y]==-1){ //지뢰 중복 시 재시도
+            if(map[y][x]==-1){ //지뢰 중복 시 재시도
                 continue;
             }
             else {
-                map[x][y]=-1; //지뢰 생성
+                map[y][x]=-1; //지뢰 생성
 
                 /**
                  * 지뢰 힌트 생성 시작
                  * */
-                if((x >= 0 && x <= width-2) && (y >= 0 && y <= height-1)) {
+                if((x >= 0 && x <= width-2) && (y >= 0 && y <= height)) {
                     if( map[y][x+1] != -1){
                         map[y][x+1] += 1;  //center right
                     }
                 }
-                if ((x >= 1 && x <= width - 1) && (y >= 0 && y <= height - 1)){
+                if ((x >= 1 && x <= width-1 ) && (y >= 0 && y <= height-1 )){
                     if (map[y][x - 1] != -1){
                         map[y][x - 1] += 1;  // center left
                     }
                 }
-                if ((x >= 1 && x <= width - 1) && (y >= 1 && y <= height - 1)){
+                if ((x >= 1 && x <= width - 1) && (y >= 1 && y <= height-1 )){
                     if (map[y - 1][x - 1] != -1){
                         map[y - 1][x - 1] += 1;  // top left
                     }
                 }
-                if ((x >= 0 && x <= width - 2) && (y >= 1 && y <= height - 1)){
+                if ((x >= 0 && x <= width - 2) && (y >= 1 && y <= height-1 )){
                     if (map[y - 1][x + 1] != -1){
                         map[y - 1][x + 1] += 1 ;  // top right
                     }
