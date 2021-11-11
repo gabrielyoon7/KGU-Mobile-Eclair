@@ -1,9 +1,11 @@
 package kr.ac.kyonggi.eclair;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
+@SuppressLint("AppCompatCustomView")
 public class BlockButton extends Button{
     int x;
     int y;

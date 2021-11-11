@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Eclair">
         <activity
+            android:name=".BlockButton"
+            android:exported="true" />
+        <activity
             android:name=".GameActivity"
             android:exported="true" />
         <activity
