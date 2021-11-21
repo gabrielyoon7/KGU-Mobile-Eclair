@@ -146,8 +146,8 @@ public class GameActivity extends AppCompatActivity {
                             mineNum.setText(BlockButton.flags + "");
 
                         } else {
-                            boolean gameOver = ((BlockButton) view).breakBlock(view);
-                            if (gameOver) {
+//                            boolean gameOver = ((BlockButton) view).breakBlock(view);
+                            if (((BlockButton)view).mine) {
                                 //전부 오픈하는 메소드
 
                                 for (int i = 0; i < buttons.length; i++) {
@@ -198,26 +198,33 @@ public class GameActivity extends AppCompatActivity {
                     }
                     void uncoverNeighbors(int i, int j, View view){
                         boolean a= (i<0||i>8||j<0||j>8);
-                        boolean b = buttons[i][j].isEnabled()==false;
-                        boolean c =buttons[i][j].neighborMines==-1;
+
                         System.out.println(i+""+j);
                         System.out.println(a);
-                        System.out.println(b);
-                        System.out.println(c);
-                        if(a||b||c) {
+
+                        if(a) {
                             return;
                         }
                         else{
+                            boolean b = buttons[i][j].isEnabled()==false;
+                            boolean c =buttons[i][j].neighborMines==-1;
+                            if(b||c){
+                                System.out.println(b);
+                                System.out.println(c);
+                            }
+                            else{
                             buttons[i][j].breakBlock(view);
-                            uncoverNeighbors(i+1,j,view); //right
-                            uncoverNeighbors(i,j+1,view); //bottom
-                            uncoverNeighbors(i+1,j+1,view);//rightBottom
-                            uncoverNeighbors(i-1,j,view); //left
-                            uncoverNeighbors(i,j-1,view); //top
-                            uncoverNeighbors(i-1,j-1,view); //leftTop
-                            uncoverNeighbors(i+1,j-1,view); //rightTop
-                            uncoverNeighbors(i-1,j+1,view); //leftBottom
-
+                            if(buttons[i][j].neighborMines==0) {
+                                uncoverNeighbors(i + 1, j, view); //right
+                                uncoverNeighbors(i, j + 1, view); //bottom
+                                uncoverNeighbors(i + 1, j + 1, view);//rightBottom
+                                uncoverNeighbors(i - 1, j, view); //left
+                                uncoverNeighbors(i, j - 1, view); //top
+                                uncoverNeighbors(i - 1, j - 1, view); //leftTop
+                                uncoverNeighbors(i + 1, j - 1, view); //rightTop
+                                uncoverNeighbors(i - 1, j + 1, view); //leftBottom
+                            }
+                        }
                         }
                     }
                     // recursive 함수
