@@ -132,7 +132,6 @@ public class GameActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         if (tbtn.isChecked()) {
                             ((BlockButton) view).toggleFlag();
-                            System.out.println(BlockButton.flags);
                             mineNum.setText(BlockButton.flags + "");
 
                         } else {
