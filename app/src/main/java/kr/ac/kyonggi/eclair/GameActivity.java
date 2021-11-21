@@ -23,8 +23,8 @@ public class GameActivity extends AppCompatActivity {
     ToggleButton tbtn = null;
     BlockButton[][] buttons = new BlockButton[9][9];
     TextView mineNum = null;
-    int iForButton = 0;
-    int jForButton =0;
+//    int iForButton = 0;
+//    int jForButton =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,10 +118,8 @@ public class GameActivity extends AppCompatActivity {
 
 
         for (int i = 0; i < 9; i++) {
-            iForButton = i;
             TableRow tableRow = new TableRow(this);
             for (int j = 0; j < 9; j++) {
-                jForButton = j;
                 buttons[i][j] = new BlockButton(this, i, j);
                 TableRow.LayoutParams layoutParams = new TableRow.LayoutParams(
                         TableRow.LayoutParams.WRAP_CONTENT,
@@ -129,6 +127,9 @@ public class GameActivity extends AppCompatActivity {
                         1.0f);
                 buttons[i][j].setLayoutParams(layoutParams);
                 tableRow.addView(buttons[i][j]);
+
+                buttons[i][j].x=i;
+                buttons[i][j].y=j;
 
                 if (map[i][j] == -1) {
                     buttons[i][j].mine = true;
@@ -153,10 +154,10 @@ public class GameActivity extends AppCompatActivity {
                                     for (int j = 0; j < buttons[i].length; j++) {
                                         if (buttons[i][j].mine) {
                                             buttons[i][j].setText("*");
-                                            buttons[i][j].setEnabled(true);
+                                            buttons[i][j].setEnabled(false);
                                         } else {
                                             buttons[i][j].setText(buttons[i][j].neighborMines + "");
-                                            buttons[i][j].setEnabled(true);
+                                            buttons[i][j].setEnabled(false);
                                         }
                                     }
                                 }
@@ -173,9 +174,9 @@ public class GameActivity extends AppCompatActivity {
                                 });
                                 dlg.show();
                             }else{// recursive
-                                if(buttons[iForButton][jForButton].neighborMines==0){
+                                if(buttons[((BlockButton) view).getBX()][((BlockButton) view).getBY()].neighborMines==0){
                                     //
-                                    uncoverNeighbors(iForButton,jForButton,view);
+                                    uncoverNeighbors(((BlockButton) view).getBX(), ((BlockButton) view).getBY(),view);
                                 }
                             }
 
@@ -204,7 +205,6 @@ public class GameActivity extends AppCompatActivity {
                         System.out.println(b);
                         System.out.println(c);
                         if(a||b||c) {
-
                             return;
                         }
                         else{

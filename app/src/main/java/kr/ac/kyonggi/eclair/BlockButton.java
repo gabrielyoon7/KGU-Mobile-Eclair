@@ -50,4 +50,11 @@ public class BlockButton extends Button{
             return false;
         }
     }
+    public int getBX(){
+        return this.x;
+    }
+
+    public int getBY(){
+        return this.y;
+    }
 }
